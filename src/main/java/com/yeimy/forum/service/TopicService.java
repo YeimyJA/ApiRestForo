@@ -25,4 +25,21 @@ public class TopicService {
     public Topic createTopic(Topic topic) {
         return topicRepository.save(topic);
     }
+
+    public Topic updateTopic(Long id, Topic updatedTopic) {
+        Topic existingTopic = topicRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Topic not found with id: " + id));
+
+        existingTopic.setTitle(updatedTopic.getTitle());
+        existingTopic.setMessage(updatedTopic.getMessage());
+    
+        return topicRepository.save(existingTopic);
+    }
+
+    public void deleteTopic(Long id) {
+        if (!topicRepository.existsById(id)) {
+            throw new RuntimeException("Topic not found with id: " + id);
+        }
+        topicRepository.deleteById(id);
+    }
 }
