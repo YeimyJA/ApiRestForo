@@ -1,14 +1,11 @@
 package com.yeimy.forum.model;
 
-import java.util.List;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,9 +17,9 @@ public class Profile {
     private Long id;
     @Enumerated(EnumType.STRING)
     private ProfileType profileType;
-    @ManyToMany(mappedBy = "profiles")
-    private List<User> users;
+    private String name;
 
+    
     public Long getId() {
         return id;
     }
@@ -35,17 +32,17 @@ public class Profile {
     public void setProfileType(ProfileType profileType) {
         this.profileType = profileType;
     }
-    public List<User> getUsers() {
-        return users;
+    public String getName() {
+        return name;
     }
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setName(String name) {
+        this.name = name;
     }
+   
 
     @Override
     public String toString() {
-        return "Profile [id=" + id + ", profileType=" + profileType + ", users=" + users + ", getProfileType()="
+        return "Profile [id=" + id + ", profileType=" + profileType + ", getProfileType()="
                 + getProfileType() + "]";
     }
-    
 }

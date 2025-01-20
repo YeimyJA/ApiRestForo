@@ -1,11 +1,13 @@
 package com.yeimy.forum.model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -17,12 +19,14 @@ public class Answer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String message;
+    private LocalDateTime creationDate;
+    private String solution;
     @ManyToOne
+    @JoinColumn(name = "topic_id", nullable = false)
     private Topic topic;
-    private Date creationDate;
-    private User author;
     @ManyToOne
-    private String answer;
+    @JoinColumn(name = "author_id", nullable = false)
+    private User author;
 
     public Long getId() {
         return id;
@@ -42,23 +46,22 @@ public class Answer {
     public void setTopic(Topic topic) {
         this.topic = topic;
     }
-    public Date getCreationDate() {
-        return creationDate;
-    }
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
     public User getAuthor() {
         return author;
     }
     public void setAuthor(User author) {
         this.author = author;
     }
-    public String getAnswer() {
-        return answer;
+    public String getSolution() {
+        return solution;
     }
-    public void setAnswer(String answer) {
-        this.answer = answer;
+    public void setSolution(String solution) {
+        this.solution = solution;
     }
-
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
+    }
 }

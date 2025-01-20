@@ -1,21 +1,23 @@
 package com.yeimy.forum.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 
 @Entity
-@Table (name = "topic")
+@Table (name = "topics")
 public class Topic {
 
     @Id
@@ -23,13 +25,18 @@ public class Topic {
     private Long id;
     private String title;
     private String message;
-    private Date creatDate;
-    private char status;
-    private List<User> author;
+    @Column(nullable = false)
+    private LocalDateTime creationDate;
+    private String status;
     @ManyToOne
-    private Class clase;
-    @OneToMany(mappedBy = "answer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Answer> answers;
+    @JoinColumn(name = "author_id", nullable = false)
+    private User author;
+    @ManyToOne
+    @JoinColumn(name = "clase_id", nullable = false)
+    private Clase clase;
+
+    @OneToMany(mappedBy = "topic", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Answer> answers = new ArrayList();
 
     public Long getId() {
         return id;
@@ -49,29 +56,17 @@ public class Topic {
     public void setMessage(String message) {
         this.message = message;
     }
-    public Date getCreatDate() {
-        return creatDate;
+    public LocalDateTime getCreatDate() {
+        return creationDate;
     }
-    public void setCreatDate(Date creatDate) {
-        this.creatDate = creatDate;
+    public void setCreatDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
     }
-    public char getStatus() {
+    public String getStatus() {
         return status;
     }
-    public void setStatus(char status) {
+    public void setStatus(String status) {
         this.status = status;
-    }
-    public List<User> getAuthor() {
-        return author;
-    }
-    public void setAuthor(List<User> author) {
-        this.author = author;
-    }
-    public Class getClase() {
-        return clase;
-    }
-    public void setClase(Class clase) {
-        this.clase = clase;
     }
     public List<Answer> getAnswers() {
         return answers;
@@ -79,5 +74,10 @@ public class Topic {
     public void setAnswers(List<Answer> answers) {
         this.answers = answers;
     }
-    
+    public User getAuthor() {
+        return author;
+    }
+    public void setAuthor(User author) {
+        this.author = author;
+    }
 }
