@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 
 
 @Entity
@@ -22,8 +23,9 @@ public class Clase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String name;
-     @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     private Category category;
 
     @OneToMany(mappedBy = "clase", cascade = CascadeType.ALL, orphanRemoval = true)

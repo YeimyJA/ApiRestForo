@@ -17,8 +17,6 @@ public class Profile {
     private Long id;
     @Enumerated(EnumType.STRING)
     private ProfileType profileType;
-    private String name;
-
     
     public Long getId() {
         return id;
@@ -32,13 +30,6 @@ public class Profile {
     public void setProfileType(ProfileType profileType) {
         this.profileType = profileType;
     }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-   
 
     @Override
     public String toString() {

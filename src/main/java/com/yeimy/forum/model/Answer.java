@@ -1,8 +1,8 @@
 package com.yeimy.forum.model;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,6 +18,7 @@ public class Answer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String message;
     private LocalDateTime creationDate;
     private String solution;
