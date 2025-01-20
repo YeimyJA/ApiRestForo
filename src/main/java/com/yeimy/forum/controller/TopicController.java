@@ -1,7 +1,15 @@
 package com.yeimy.forum.controller;
 
+import java.util.List;
+
+import com.yeimy.forum.model.Topic;
+import com.yeimy.forum.service.TopicService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,13 +17,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/topic")
 public class TopicController {
 
+    @Autowired
+    private TopicService topicService;
+
     @GetMapping
-    public String getTopic() {
-        return "Topic!";
+    public List<Topic> getAllTopics() {
+        return topicService.getAllTopics();
+    }
+
+    @GetMapping("/{id}")
+    public Topic getTopicById(@PathVariable Long id) {
+        return topicService.getTopicById(id);
     }
 
     @PostMapping
-    public String createTopic(){
-        return "";
+    public Topic createTopic(@RequestBody Topic topic) {
+        return topicService.createTopic(topic);
     }
 }
