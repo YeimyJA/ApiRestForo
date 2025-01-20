@@ -27,7 +27,7 @@ public class Topic {
     private String message;
     @Column(nullable = false)
     private LocalDateTime creationDate;
-    private String status;
+    private boolean status;
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
     private User author;
@@ -38,6 +38,24 @@ public class Topic {
     @OneToMany(mappedBy = "topic", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Answer> answers = new ArrayList();
 
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
+    }
+    public boolean isStatus() {
+        return status;
+    }
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+    public Clase getClase() {
+        return clase;
+    }
+    public void setClase(Clase clase) {
+        this.clase = clase;
+    }
     public Long getId() {
         return id;
     }
@@ -61,12 +79,6 @@ public class Topic {
     }
     public void setCreatDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
-    }
-    public String getStatus() {
-        return status;
-    }
-    public void setStatus(String status) {
-        this.status = status;
     }
     public List<Answer> getAnswers() {
         return answers;
